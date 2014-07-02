@@ -18,9 +18,10 @@ module.exports = Download;
  * @param {String} path
  */
 
-function Download(path){
+function Download(path, type){
   if (!(this instanceof Download)) return new Download(path);
   this.path = path;
+  this.type = type || '';
 }
 
 /**
@@ -47,6 +48,7 @@ Download.prototype.onprogress = function(e){
 
 Download.prototype.end = function(fn){
   var req = this.req = request();
+  req.responseType = this.type;
   req.open('GET', this.path);
   req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   req.onprogress = this.onprogress.bind(this);
