@@ -48,8 +48,8 @@ Download.prototype.onprogress = function(e){
 
 Download.prototype.end = function(fn){
   var req = this.req = request();
+  req.open('GET', this.path, true);
   req.responseType = this.type;
-  req.open('GET', this.path);
   req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   req.onprogress = this.onprogress.bind(this);
   req.onreadystatechange = ready;
